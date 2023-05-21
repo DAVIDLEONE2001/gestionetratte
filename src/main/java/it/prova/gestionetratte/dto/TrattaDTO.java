@@ -26,11 +26,11 @@ public class TrattaDTO {
 	private String codice;
 	@NotBlank(message = "{descrizione.notblank}")
 	private String descrizione;
-	@NotBlank(message = "{data.notblank}")
+	@NotNull(message = "{data.notblank}")
 	private LocalDate data;
-	@NotBlank(message = "{orad.notnull}")
+	@NotNull(message = "{orad.notnull}")
 	private LocalDateTime oraDecollo;
-	@NotBlank(message = "{orad.notnull}")
+	@NotNull(message = "{orad.notnull}")
 	private LocalDateTime oraAtterraggio;
 	@NotNull(message = "{stato.notnull}")
 	private StatoTratta stato;

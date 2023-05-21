@@ -15,7 +15,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import it.prova.gestionetratte.model.Airbus;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class AirbusDTO {
+public class AirbusDTOSovrapp  {
 
 	private Long id;
 	@NotBlank(message = "{codice.notblank}")
@@ -26,14 +26,16 @@ public class AirbusDTO {
 	private LocalDate dataInizioServizio;
 	@NotNull(message = "{numerop.notblank}")
 	private Integer numeroPasseggeri;
-
+	
+	private boolean conSovrapposizioni;
+	
 	@JsonIgnoreProperties(value = { "airbus" })
 	private Set<TrattaDTO> tratte = new HashSet<TrattaDTO>(0);
 
-	public AirbusDTO() {
+	public AirbusDTOSovrapp() {
 	}
 
-	public AirbusDTO(Long id, @NotBlank(message = "{codice.notblank}") String codice,
+	public AirbusDTOSovrapp(Long id, @NotBlank(message = "{codice.notblank}") String codice,
 			@NotBlank(message = "{descrizione.notblank}") String descrizione,
 			@NotBlank(message = "{data.notblank}") LocalDate dataInizioServizio,
 			@NotBlank(message = "{numerop.notblank}") Integer numeroPasseggeri) {
@@ -97,17 +99,17 @@ public class AirbusDTO {
 		return new Airbus(this.id, this.codice, this.descrizione, this.dataInizioServizio, this.numeroPasseggeri);
 	}
 
-	public static AirbusDTO buildAirbusDTOFromModel(Airbus airbusModel, boolean includeTratte) {
-		AirbusDTO result = new AirbusDTO(airbusModel.getId(), airbusModel.getCodice(), airbusModel.getDescrizione(),
+	public static AirbusDTOSovrapp buildAirbusDTOFromModel(Airbus airbusModel, boolean includeTratte) {
+		AirbusDTOSovrapp result = new AirbusDTOSovrapp(airbusModel.getId(), airbusModel.getCodice(), airbusModel.getDescrizione(),
 				airbusModel.getDataInizioServizio(), airbusModel.getNumeroPasseggeri());
 		if (includeTratte)
 			result.setTratte(TrattaDTO.createTrattaDTOSetFromModelSet(airbusModel.getTratte(), false));
 		return result;
 	}
 
-	public static List<AirbusDTO> createAirbusDTOListFromModelList(List<Airbus> modelListInput, boolean includeTratte) {
+	public static List<AirbusDTOSovrapp> createAirbusDTOListFromModelList(List<Airbus> modelListInput, boolean includeTratte) {
 		return modelListInput.stream().map(airbusEntity -> {
-			AirbusDTO result = AirbusDTO.buildAirbusDTOFromModel(airbusEntity, includeTratte);
+			AirbusDTOSovrapp result = AirbusDTOSovrapp.buildAirbusDTOFromModel(airbusEntity, includeTratte);
 			if (includeTratte)
 				result.setTratte(TrattaDTO.createTrattaDTOSetFromModelSet(airbusEntity.getTratte(), false));
 			return result;

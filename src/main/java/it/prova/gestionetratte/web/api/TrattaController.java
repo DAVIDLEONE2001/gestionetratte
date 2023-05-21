@@ -23,7 +23,6 @@ import it.prova.gestionetratte.service.TrattaService;
 import it.prova.gestionetratte.web.api.exception.IdNotNullForInsertException;
 import it.prova.gestionetratte.web.api.exception.TrattaNotFoundException;
 
-
 @RestController
 @RequestMapping("api/tratta")
 public class TrattaController {
@@ -31,7 +30,7 @@ public class TrattaController {
 	public TrattaController() {
 		// TODO Auto-generated constructor stub
 	}
-	
+
 	@Autowired
 	private TrattaService trattaService;
 
@@ -62,7 +61,7 @@ public class TrattaController {
 
 		return TrattaDTO.buildTrattaDTOFromModel(tratta, true);
 	}
-	
+
 	@PutMapping("/{id}")
 	public TrattaDTO update(@Valid @RequestBody TrattaDTO trattaInput, @PathVariable(required = true) Long id) {
 		Tratta tratta = trattaService.caricaSingoloElemento(id);
@@ -74,12 +73,27 @@ public class TrattaController {
 		Tratta trattaAggiornata = trattaService.aggiorna(trattaInput.buildTrattaModel());
 		return TrattaDTO.buildTrattaDTOFromModel(trattaAggiornata, false);
 	}
-	
+
 	@DeleteMapping("/{id}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public ResponseEntity<String> delete(@PathVariable(required = true) Long id) {
+		Tratta tratta = trattaService.caricaSingoloElemento(id);
+
+		if (tratta == null)
+			throw new TrattaNotFoundException("Tratta not found con id: " + id);
+
 		trattaService.rimuovi(id);
-		return ResponseEntity.ok("Tratta con id=" +id+ " eliminato con successo");
+		return ResponseEntity.ok("Tratta con id=" + id + " eliminato con successo");
+	}
+
+	@PostMapping("/search")
+	public List<TrattaDTO> search(@RequestBody TrattaDTO example) {
+		return TrattaDTO.createTrattaDTOListFromModelList(trattaService.findByExample(example.buildTrattaModel()),
+				false);
+	}
+	@GetMapping("/concludiTratte")
+	public List<TrattaDTO> concludiTratte() {
+		return TrattaDTO.createTrattaDTOListFromModelList(trattaService.getTratteConcluse(), false);
 	}
 
 }

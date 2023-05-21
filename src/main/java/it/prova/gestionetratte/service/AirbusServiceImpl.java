@@ -40,24 +40,26 @@ public class AirbusServiceImpl implements AirbusService {
 	}
 
 	@Override
+	@Transactional
 	public Airbus aggiorna(Airbus airbusInstance) {
 		return repository.save(airbusInstance);
 	}
 
 	@Override
+	@Transactional
 	public Airbus inserisciNuovo(Airbus airbusInstance) {
 		return repository.save(airbusInstance);
 	}
 
 	@Override
+	@Transactional
 	public void rimuovi(Long idToRemove) {
 		repository.deleteById(idToRemove);
 	}
 
 	@Override
 	public List<Airbus> findByExample(Airbus example) {
-		// TODO Auto-generated method stub
-		return null;
+		return repository.findByExample(example);
 	}
 
 }

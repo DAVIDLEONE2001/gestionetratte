@@ -27,7 +27,7 @@ public class Airbus {
 	private String descrizione;
 	@Column(name = "dataInizioServizio")
 	private LocalDate dataInizioServizio;
-	@Column(name = "numeroPasegeri")
+	@Column(name = "numeroPassegeri")
 	private Integer numeroPasseggeri;
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "airbus")
 	private Set<Tratta> tratte = new HashSet<>();

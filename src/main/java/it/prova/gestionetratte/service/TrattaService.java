@@ -24,5 +24,7 @@ public interface TrattaService {
 
 	List<Tratta> findByExample(Tratta example);
 
+	List<Tratta> getTratteConcluse();
+	
 	
 }

@@ -73,6 +73,20 @@ public class Tratta {
 		this.stato = stato;
 	}
 
+	
+
+	public Tratta(String codice, String descrizione, LocalDate data, LocalDateTime oraDecollo,
+			LocalDateTime oraAtterraggio, StatoTratta stato, Airbus airbus) {
+		super();
+		this.codice = codice;
+		this.descrizione = descrizione;
+		this.data = data;
+		this.oraDecollo = oraDecollo;
+		this.oraAtterraggio = oraAtterraggio;
+		this.stato = stato;
+		this.airbus = airbus;
+	}
+
 
 
 	public Tratta() {

@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import it.prova.gestionetratte.dto.AirbusDTO;
+import it.prova.gestionetratte.dto.AirbusDTOSovrapp;
 import it.prova.gestionetratte.model.Airbus;
 import it.prova.gestionetratte.service.AirbusService;
 import it.prova.gestionetratte.web.api.exception.AirbusNotFoundException;
@@ -82,14 +83,26 @@ public class AirbusController {
 	@DeleteMapping("/{id}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public ResponseEntity<String> delete(@PathVariable(required = true) Long id) {
+		Airbus regista = airbusService.caricaSingoloElemento(id);
+
+		if (regista == null)
+			throw new AirbusNotFoundException("Airbus not found con id: " + id);
+
 		airbusService.rimuovi(id);
-		return ResponseEntity.ok("Regista con id=" + id + " eliminato con successo");
+		return ResponseEntity.ok("Airbus con id=" + id + " eliminato con successo");
 	}
 
 	@PostMapping("/search")
 	public List<AirbusDTO> search(@RequestBody AirbusDTO example) {
 		return AirbusDTO.createAirbusDTOListFromModelList(airbusService.findByExample(example.buildAirbusModel()),
 				false);
+	}
+	
+	@GetMapping("/listaAirbusEvidenziandoSovrapposizioni")
+	public List<AirbusDTO> listaAirbusEvidenziandoSovrapposizioni () {
+		// senza DTO qui hibernate dava il problema del N + 1 SELECT
+		// (probabilmente dovuto alle librerie che serializzano in JSON)
+		return AirbusDTOSovrapp.createAirbusDTOSovrappListFromModelList(airbusService.listAllElementsEager(), true);
 	}
 	
 }
