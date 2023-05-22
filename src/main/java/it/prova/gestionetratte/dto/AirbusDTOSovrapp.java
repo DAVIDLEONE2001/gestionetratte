@@ -27,7 +27,7 @@ public class AirbusDTOSovrapp  {
 	@NotNull(message = "{numerop.notblank}")
 	private Integer numeroPasseggeri;
 	
-	private boolean conSovrapposizioni;
+	private Boolean conSovrapposizioni = null;
 	
 	@JsonIgnoreProperties(value = { "airbus" })
 	private Set<TrattaDTO> tratte = new HashSet<TrattaDTO>(0);
@@ -70,6 +70,7 @@ public class AirbusDTOSovrapp  {
 	public void setDescrizione(String descrizione) {
 		this.descrizione = descrizione;
 	}
+	
 
 	public LocalDate getDataInizioServizio() {
 		return dataInizioServizio;
@@ -114,6 +115,14 @@ public class AirbusDTOSovrapp  {
 				result.setTratte(TrattaDTO.createTrattaDTOSetFromModelSet(airbusEntity.getTratte(), false));
 			return result;
 		}).collect(Collectors.toList());
+	}
+
+	public Boolean getConSovrapposizioni() {
+		return conSovrapposizioni;
+	}
+
+	public void setConSovrapposizioni(Boolean conSovrapposizioni) {
+		this.conSovrapposizioni = conSovrapposizioni;
 	}
 
 }

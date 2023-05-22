@@ -1,6 +1,7 @@
 package it.prova.gestionetratte.web.api;
 
 import java.util.List;
+import java.util.Set;
 
 import javax.validation.Valid;
 
@@ -99,10 +100,10 @@ public class AirbusController {
 	}
 	
 	@GetMapping("/listaAirbusEvidenziandoSovrapposizioni")
-	public List<AirbusDTO> listaAirbusEvidenziandoSovrapposizioni () {
+	public Set<AirbusDTOSovrapp> listaAirbusEvidenziandoSovrapposizioni () {
 		// senza DTO qui hibernate dava il problema del N + 1 SELECT
 		// (probabilmente dovuto alle librerie che serializzano in JSON)
-		return AirbusDTOSovrapp.createAirbusDTOSovrappListFromModelList(airbusService.listAllElementsEager(), true);
+		return airbusService.listaAirbusDTOSovrapp();
 	}
 	
 }
