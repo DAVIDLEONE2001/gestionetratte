@@ -27,7 +27,7 @@ public class AirbusDTOSovrapp  {
 	@NotNull(message = "{numerop.notblank}")
 	private Integer numeroPasseggeri;
 	
-	private Boolean conSovrapposizioni = null;
+	private Boolean conSovrapposizioni = true;
 	
 	@JsonIgnoreProperties(value = { "airbus" })
 	private Set<TrattaDTO> tratte = new HashSet<TrattaDTO>(0);

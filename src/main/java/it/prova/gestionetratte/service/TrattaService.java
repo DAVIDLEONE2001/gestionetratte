@@ -10,8 +10,6 @@ public interface TrattaService {
 	
 	public Tratta caricaSingoloElementoEager(Long id);
 
-	List<Tratta> listAllElementsEager();
-
 	Tratta caricaSingoloElemento(Long id);
 
 	Tratta caricaSingoloElementoConAirbus(Long id);

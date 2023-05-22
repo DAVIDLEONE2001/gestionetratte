@@ -30,11 +30,6 @@ public class TrattaServiceImpl implements TrattaService {
 		return (List<Tratta>) repository.findAll();
 	}
 
-	@Override
-	public List<Tratta> listAllElementsEager() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	@Override
 	public Tratta caricaSingoloElemento(Long id) {
@@ -62,7 +57,6 @@ public class TrattaServiceImpl implements TrattaService {
 	@Override
 	@Transactional
 	public void rimuovi(Long idToRemove) {
-//TODO
 		repository.deleteById(idToRemove);
 
 	}
